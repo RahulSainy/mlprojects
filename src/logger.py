@@ -23,7 +23,7 @@ logging.basicConfig(
     level=logging.INFO,
 )
 
-# # # Only to test the logger
-# if __name__ =="__main__":
-#    logging.info("This is an info message")
-# # # it creates the output as [16-07-2024 05:11:45] - 28 root - INFO This is an info message
+# # Only to test the logger
+if __name__ =="__main__":
+   logging.info("This is an info message")
+# # it creates the output as [16-07-2024 05:11:45] - 28 root - INFO This is an info message

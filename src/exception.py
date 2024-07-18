@@ -1,5 +1,5 @@
 import sys  # System-specific parameters and functions
-import logging
+from src.logger import logging  # Import the logging module
 
 # learn form https://docs.python.org/3/tutorial/errors.html
 def error_message_detail(error, error_detail: sys):
@@ -37,12 +37,12 @@ class CustomException(Exception):
         #when we raise the exception it will return the error message to print it
         return f"{self.error_message}"
 
-# # to test logger.py 
-# if __name__ =="__main__":
+# to test logger.py 
+if __name__ =="__main__":
    
-#     try:
-#         a = 1/0
-#     except Exception as e:
-#         logging.info("Divide by Zero error")
-#         raise CustomException(e,sys)
+    try:
+        a = 1/0
+    except Exception as e:
+        logging.info("Divide by Zero error")
+        raise CustomException(e,sys)
    
