@@ -1,11 +1,17 @@
 import os
-import sys  # for using custom exception
+import sys
 from src.exception import CustomException
 from src.logger import logging
-
 import pandas as pd
+
 from sklearn.model_selection import train_test_split
-from dataclasses import dataclass  # for data validation
+from dataclasses import dataclass
+
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import DataTransformationConfig
+
+# from src.components.model_trainer import ModelTrainerConfig
+# from src.components.model_trainer import ModelTrainer
 
 # In datIngestion there should be some inputs like where to save the data, what is the data type, etc
 # so for this we will create DataIngestion class
@@ -58,7 +64,7 @@ class DataIngestion:
                 self.ingestion_config.test_data_path, index=False, header=True
             )
             logging.info("Train test split completed")
-
+            
             return (
                 self.ingestion_config.train_data_path,
                 self.ingestion_config.test_data_path,
@@ -72,4 +78,9 @@ class DataIngestion:
 # to test the data_ingestion.py
 if __name__ == '__main__':
     data_ingestion = DataIngestion(DataIngestionConfig())
-    data_ingestion.intiate_data_ingestion()
+    # data_ingestion.intiate_data_ingestion()
+    train_data, test_data = data_ingestion.intiate_data_ingestion()
+
+    # initiate the data transformation
+    data_transformation = DataTransformation()
+    data_transformation.initiate_data_transformation(train_data, test_data)
