@@ -68,3 +68,16 @@ def evaluate_models(X_train, y_train,X_test,y_test,models,param):
 
     except Exception as e:
         raise CustomException(e, sys)
+
+def load_object(file_path):
+    """
+    This function is used to load the object from the pickle file
+    :param file_path: file path to load the object
+    :return: object
+    """
+    try:
+        with open(file_path, "rb") as file_obj:
+            obj = dill.load(file_obj)
+        return obj
+    except Exception as e:
+        raise CustomException(e, sys)
