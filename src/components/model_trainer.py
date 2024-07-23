@@ -27,6 +27,7 @@ from sklearn.metrics import r2_score
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.tree import DecisionTreeRegressor
 from xgboost import XGBRegressor
+
 # from catboost import CatBoostRegressor
 
 from src.exception import CustomException
@@ -66,11 +67,58 @@ class ModelTrainer:
                 "Decision Tree": DecisionTreeRegressor(),
                 "Gradient Boosting": GradientBoostingRegressor(),
                 "Linear Regression": LinearRegression(),
-                "K-Neighbors Classifier": KNeighborsRegressor(),
-                "XGBClassifier": XGBRegressor(),
-                "AdaBoost Classifier": AdaBoostRegressor(),
+                "K-Neighbors Regressor": KNeighborsRegressor(),
+                "XGBRegressor": XGBRegressor(),
+                "AdaBoost Regressor": AdaBoostRegressor(),
                 # "CatBoost Regressor": CatBoostRegressor(verbose=False),  # some issue with catboost
             }
+            # Parameters for the models to be used in the model training process
+            params = {
+                "Decision Tree": {
+                    "criterion": [
+                        "squared_error",
+                        "friedman_mse",
+                        "absolute_error",
+                        "poisson",
+                    ],
+                    # 'splitter':['best','random'],
+                    # 'max_features':['sqrt','log2'],
+                },
+                "Random Forest": {
+                    # 'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
+                    # 'max_features':['sqrt','log2',None],
+                    "n_estimators": [8, 16, 32, 64, 128, 256]
+                },
+                "Gradient Boosting": {
+                    # 'loss':['squared_error', 'huber', 'absolute_error', 'quantile'],
+                    "learning_rate": [0.1, 0.01, 0.05, 0.001],
+                    "subsample": [0.6, 0.7, 0.75, 0.8, 0.85, 0.9],
+                    # 'criterion':['squared_error', 'friedman_mse'],
+                    # 'max_features':['auto','sqrt','log2'],
+                    "n_estimators": [8, 16, 32, 64, 128, 256],
+                },
+                "Linear Regression": {},
+                "XGBRegressor": {
+                    "learning_rate": [0.1, 0.01, 0.05, 0.001],
+                    "n_estimators": [8, 16, 32, 64, 128, 256],
+                },
+                # "CatBoosting Regressor":{
+                #     'depth': [6,8,10],
+                #     'learning_rate': [0.01, 0.05, 0.1],
+                #     'iterations': [30, 50, 100]
+                # },
+                "K-Neighbors Regressor": {
+                    "n_neighbors": [3, 5, 7, 9],  # Example parameter
+                    "weights": ["uniform", "distance"],
+                    "algorithm": ["auto", "ball_tree", "kd_tree", "brute"],
+                },
+                "AdaBoost Regressor": {
+                    "learning_rate": [0.1, 0.01, 0.5, 0.001],
+                    # 'loss':['linear','square','exponential'],
+                    "n_estimators": [8, 16, 32, 64, 128, 256],
+                },
+            }
+
             # Evaluating the model function in utils.py
             # This function will run the model and return the model report
             model_report: dict = evaluate_models(
@@ -79,7 +127,9 @@ class ModelTrainer:
                 X_test=X_test,
                 y_test=y_test,
                 models=models,
+                param=params,
             )
+
             # Sorting the model report in descending order from dict
             best_model_score = max(sorted(model_report.values()))
 

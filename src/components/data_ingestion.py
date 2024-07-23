@@ -75,7 +75,7 @@ class DataIngestion:
             )  # raise the custom exception if any error occurs
 
 
-# to test the data_ingestion.py
+# to test the model_trainer.py
 if __name__ == '__main__':
     data_ingestion = DataIngestion(DataIngestionConfig())
     # data_ingestion.initiate_data_ingestion()
