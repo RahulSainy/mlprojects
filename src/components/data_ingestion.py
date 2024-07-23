@@ -10,8 +10,8 @@ from dataclasses import dataclass
 from src.components.data_transformation import DataTransformation
 from src.components.data_transformation import DataTransformationConfig
 
-# from src.components.model_trainer import ModelTrainerConfig
-# from src.components.model_trainer import ModelTrainer
+from src.components.model_trainer import ModelTrainerConfig
+from src.components.model_trainer import ModelTrainer
 
 # In datIngestion there should be some inputs like where to save the data, what is the data type, etc
 # so for this we will create DataIngestion class
@@ -80,7 +80,11 @@ if __name__ == '__main__':
     data_ingestion = DataIngestion(DataIngestionConfig())
     # data_ingestion.intiate_data_ingestion()
     train_data, test_data = data_ingestion.intiate_data_ingestion()
-
+#to test data_transformation.py
     # initiate the data transformation
     data_transformation = DataTransformation()
-    data_transformation.initiate_data_transformation(train_data, test_data)
+    train_arr, test_arr= data_transformation.initiate_data_transformation(train_data, test_data)
+#to test model_trainer.py
+    # initiate the model trainer
+    model_trainer = ModelTrainer()
+    print(model_trainer.initiate_model_trainer(train_arr, test_arr))
