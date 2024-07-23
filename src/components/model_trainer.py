@@ -1,8 +1,7 @@
 import os
 import sys
+from dataclasses import dataclass
 
-print("sys_exeutable ", sys.executable)
-print("sys_path ", sys.path)
 
 from sklearn.ensemble import (
     AdaBoostRegressor,
@@ -14,7 +13,21 @@ from sklearn.metrics import r2_score
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.tree import DecisionTreeRegressor
 from xgboost import XGBRegressor
-from catboost import CatBoostRegressor
+import os
+import sys
+
+
+from sklearn.ensemble import (
+    AdaBoostRegressor,
+    GradientBoostingRegressor,
+    RandomForestRegressor,
+)
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.tree import DecisionTreeRegressor
+from xgboost import XGBRegressor
+# from catboost import CatBoostRegressor
 
 from src.exception import CustomException
 from src.logger import logging
@@ -55,8 +68,8 @@ class ModelTrainer:
                 "Linear Regression": LinearRegression(),
                 "K-Neighbors Classifier": KNeighborsRegressor(),
                 "XGBClassifier": XGBRegressor(),
-                "CatBoosting Classifier": CatBoostRegressor(verbose=False),
                 "AdaBoost Classifier": AdaBoostRegressor(),
+                # "CatBoost Regressor": CatBoostRegressor(verbose=False),  # some issue with catboost
             }
             # Evaluating the model function in utils.py
             # This function will run the model and return the model report

@@ -36,7 +36,7 @@ class DataIngestion:
             DataIngestionConfig()
         )  # object of DataIngestionConfig this will get the values of class (file paths) in the variable
 
-    def intiate_data_ingestion(self):
+    def initiate_data_ingestion(self):
         """
         This function is used to intiate and read the data from the raw data path
         """
@@ -78,12 +78,13 @@ class DataIngestion:
 # to test the data_ingestion.py
 if __name__ == '__main__':
     data_ingestion = DataIngestion(DataIngestionConfig())
-    # data_ingestion.intiate_data_ingestion()
-    train_data, test_data = data_ingestion.intiate_data_ingestion()
+    # data_ingestion.initiate_data_ingestion()
+    train_data,test_data=data_ingestion.initiate_data_ingestion()
 #to test data_transformation.py
     # initiate the data transformation
-    data_transformation = DataTransformation()
-    train_arr, test_arr= data_transformation.initiate_data_transformation(train_data, test_data)
+    data_transformation=DataTransformation()
+    train_arr,test_arr,_=data_transformation.initiate_data_transformation(train_data,test_data)
+
 #to test model_trainer.py
     # initiate the model trainer
     model_trainer = ModelTrainer()
